@@ -3,53 +3,52 @@
 /*                                                              /             */
 /*   ft_strtrim.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/29 14:55:22 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/29 14:55:22 by edbernie    ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/29 13:50:51 by nerahmou     #+#   ##    ##    #+#       */
+/*   Updated: 2017/11/29 13:50:51 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_cpy(char *dst, const char *s, int a, int b)
+static int		ft_nospace(char s)
 {
-	int c;
-
-	c = 0;
-	while (b < a)
-	{
-		dst[c] = s[b];
-		b++;
-		c++;
-	}
-	dst[c] = '\0';
-	return (dst);
+	return (!(s == ' ' || s == '\t' || s == '\n'));
 }
 
-char		*ft_strtrim(char const *s)
+static char		*ft_trim(const char *s, int length)
 {
-	int		a;
-	int		b;
-	int		c;
-	char	*dst;
+	int		i;
+	char	*tab;
 
-	if (s)
+	i = 0;
+	while (s[i] && !ft_nospace(s[i]))
+		i++;
+	while (s[i] && !ft_nospace(s[length - 1]))
+		length--;
+	if (!(tab = ft_strnew(length - i)))
+		return (NULL);
+	ft_strncpy(tab, &s[i], length - i);
+	return (tab);
+}
+
+char			*ft_strtrim(const char *s)
+{
+	int		length;
+	char	*tab;
+
+	if (!s)
+		return (NULL);
+	length = ft_strlen(s);
+	if (ft_nospace(s[0]) && ft_nospace(s[length - 1]))
 	{
-		a = ft_strlen(s);
-		b = 0;
-		c = 0;
-		while (s[a - 1] == ' ' || s[a - 1] == '\n' || s[a - 1] == '\t')
-			a--;
-		while (s[b] == ' ' || s[b] == '\n' || s[b] == '\t')
-			b++;
-		if (s[b] == '\0')
-			return (ft_strdup(s + b));
-		c = a - b;
-		if (!(dst = ft_strnew(c)))
+		if (!(tab = ft_strnew(length)))
 			return (NULL);
-		return (ft_cpy(dst, s, a, b));
+		ft_strcpy(tab, s);
 	}
-	return (0);
+	else
+		tab = ft_trim(s, length);
+	return (tab);
 }

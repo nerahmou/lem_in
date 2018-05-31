@@ -3,40 +3,33 @@
 /*                                                              /             */
 /*   ft_itoa_base.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/17 16:56:42 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/07 12:03:30 by edbernie    ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/26 23:43:32 by nerahmou     #+#   ##    ##    #+#       */
+/*   Updated: 2017/12/31 16:20:39 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa_base(uintmax_t value, int base)
+char	*ft_itoa_base(int value, int base)
 {
-	int				i;
-	uintmax_t		nb;
-	char			*res;
+	int				length;
+	unsigned int	abs;
+	char			*output;
 
-	nb = value;
-	i = 0;
-	while (nb > 0)
-	{
-		nb /= base;
-		i++;
-	}
-	if (!(res = (char*)malloc(sizeof(char) * i + 1)))
+	if (base == 10)
+		return (ft_itoa(value));
+	abs = ft_abs(value);
+	length = ft_intlen(abs, base);
+	if (!(output = (char *)malloc(sizeof(char) * length + 1)))
 		return (NULL);
-	res[i--] = '\0';
-	nb = value;
-	while (i >= 0)
+	output[length] = 0;
+	while (--length >= 0)
 	{
-		res[i] = (nb % base) >= 10 ? (nb % base) + 97 - 10 : (nb % base) + 48;
-		nb /= base;
-		i--;
+		output[length] = abs % base > 9 ? abs % base + 55 : abs % base + 48;
+		abs /= base;
 	}
-	if (value == 0)
-		res[0] = '0';
-	return (res);
+	return (output);
 }

@@ -6,12 +6,12 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:41:27 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/29 19:42:28 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/31 12:13:14 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
 int	 ft_strchr_occur(char *s, int c)
 {

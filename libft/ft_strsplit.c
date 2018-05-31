@@ -3,30 +3,27 @@
 /*                                                              /             */
 /*   ft_strsplit.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/29 14:55:22 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/29 14:55:22 by edbernie    ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/29 13:50:51 by nerahmou     #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/31 13:45:06 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_compteur(char const *str, char c)
+static int  ft_compteur(char const *str, char c)
 {
 	int i;
-
 	i = 0;
 	while (str[i] != '\0' && str[i] != c)
 		i++;
 	return (i);
 }
-
-static void	ft_trans(char const *str, char *tab, int len)
+static void ft_trans(char const *str, char *tab, int len)
 {
 	int i;
-
 	i = 0;
 	while (i < len)
 	{
@@ -35,12 +32,10 @@ static void	ft_trans(char const *str, char *tab, int len)
 	}
 	tab[i] = '\0';
 }
-
-static int	ft_calcul(char const *str, char c)
+static int  ft_calcul(char const *str, char c)
 {
 	int i;
 	int j;
-
 	i = 0;
 	j = 0;
 	while (str[i] != '\0')
@@ -54,14 +49,12 @@ static int	ft_calcul(char const *str, char c)
 	}
 	return (j);
 }
-
-static char	**ft_add(char const *s, char c, char **tab)
+static char **ft_add(char const *s, char c, char **tab)
 {
 	int j;
 	int i;
 	int a;
 	int len;
-
 	a = ft_calcul(s, c);
 	i = 0;
 	j = -1;
@@ -79,12 +72,10 @@ static char	**ft_add(char const *s, char c, char **tab)
 	tab[j] = 0;
 	return (tab);
 }
-
-char		**ft_strsplit(char const *s, char c)
+char        **ft_strsplit(char const *s, char c)
 {
-	int		a;
-	char	**tab;
-
+	int     a;
+	char    **tab;
 	if (s)
 	{
 		a = ft_calcul(s, c);

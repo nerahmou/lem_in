@@ -6,12 +6,12 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:36:04 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/29 19:37:31 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/31 12:13:40 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
 int		ft_tablength(char **tab)
 {

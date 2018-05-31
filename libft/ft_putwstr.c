@@ -3,27 +3,23 @@
 /*                                                              /             */
 /*   ft_putwstr.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/02/10 13:58:21 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/10 15:19:16 by edbernie    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/03 19:20:20 by nerahmou     #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/03 19:36:35 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_putwstr(wchar_t *str)
+int	ft_putwstr(const wchar_t *str)
 {
-	int i;
-	int nb;
+	int ret;
 
-	i = 0;
-	nb = 0;
-	while (str[i])
-	{
-		nb += ft_putwchar(str[i]);
-		i++;
-	}
-	return (nb);
+	ret = 0;
+	if (str)
+		while (*str)
+			ret += ft_putwchar(*str++);
+	return (ret);
 }

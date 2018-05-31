@@ -3,77 +3,37 @@
 /*                                                              /             */
 /*   ft_itoa.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/29 14:55:16 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/07 14:09:44 by edbernie    ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/29 13:50:41 by nerahmou     #+#   ##    ##    #+#       */
+/*   Updated: 2017/12/29 20:11:13 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_intlen(intmax_t n)
+char			*ft_itoa(int n)
 {
-	int size;
+	int		abs;
+	int		length;
+	char	*tab;
 
-	size = 0;
-	if (n < 0)
-		size++;
-	while (n != 0)
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	abs = ft_abs(n);
+	length = ft_intlen(n, 10);
+	if (!(tab = ft_strnew(length)))
+		return (NULL);
+	while (--length > 0)
 	{
-		size++;
-		n = n / 10;
+		tab[length] = (abs % 10) + '0';
+		abs = abs / 10;
 	}
-	return (size);
-}
-
-static char	*ft_malloc(intmax_t n)
-{
-	char *dst;
-
 	if (n < 0)
-		dst = ft_strnew(ft_intlen(n));
+		tab[0] = '-';
 	else
-		dst = ft_strnew(ft_intlen(n) + 1);
-	return (dst);
-}
-
-static char	*ft_chiffre(intmax_t n)
-{
-	char *dst;
-
-	dst = ft_malloc(0);
-	dst[0] = n + 48;
-	dst[1] = '\0';
-	return (dst);
-}
-
-char		*ft_itoa(intmax_t n)
-{
-	intmax_t	a;
-	char		*dst;
-
-	if (n >= 0 && n <= 9)
-		return (ft_chiffre(n));
-	if (n == (intmax_t)-9223372036854775808ULL)
-		return (dst = ft_strdup("-9223372036854775808"));
-	dst = ft_malloc(n);
-	a = ft_intlen(n) - 1;
-	if (dst)
-	{
-		if (n < 0)
-		{
-			dst[0] = '-';
-			n = n * -1;
-		}
-		dst[a + 1] = '\0';
-		while (n > 0)
-		{
-			dst[a] = '0' + (n % 10);
-			n = n / 10;
-			a--;
-		}
-	}
-	return (dst);
+		tab[0] = abs + '0';
+	tab[-1] = 0;
+	return (tab);
 }

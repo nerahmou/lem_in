@@ -6,7 +6,7 @@
 #    By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/30 13:54:18 by befuhro      #+#   ##    ##    #+#        #
-#    Updated: 2018/05/30 18:01:02 by nerahmou    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/05/31 12:15:26 by nerahmou    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -25,10 +25,10 @@ OBJ_LEM_PATH = obj/
 OBJ_LEM = $(SRC_LEM:.c=.o)
 OBJ = $(addprefix $(OBJ_LEM_PATH),$(OBJ_LEM))
 LIBFT_PATH = libft/
-INCLUDES = includes/
+INCLUDES = .
 LIBFT_INCLUDES = $(addprefix $(LIBFT_PATH),$(INCLUDES))
 CC = clang -g
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 NAME = lem-in
 
 .PHONY: all clean fclean re
@@ -47,7 +47,7 @@ $(OBJ_LEM_PATH)%.o: $(LEM_PATH)%.c
 
 clean:
 	@echo "SUPPRESSION FICHIER LEM-IN .O"
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ_LEM_PATH) lem-in.dSYM
 	@make -C $(LIBFT_PATH) clean
 
 fclean: clean

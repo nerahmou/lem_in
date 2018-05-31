@@ -3,40 +3,40 @@
 /*                                                              /             */
 /*   ft_putwchar.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/18 11:50:02 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/10 14:01:46 by edbernie    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/03 19:15:51 by nerahmou     #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/22 20:09:16 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_putwchar(wchar_t c)
+int	ft_putwchar(wchar_t c)
 {
-	int i;
+	int length;
 
-	i = 0;
-	if (c <= 0x7F)
-		i += ft_putchar(c);
-	else if (c <= 0x7FF)
+	length = ft_wcharlen(c);
+	if (length == 1)
+		write(1, &c, 1);
+	else if (length == 2)
 	{
-		i += ft_putchar(c >> 6 | 0xC0);
-		i += ft_putchar((c & 0x3F) | 0x80);
+		ft_putchar((char)(0xC0 | (c >> 6)));
+		ft_putchar((char)((0x3f & c) | 0x80));
 	}
-	else if (c <= 0xFFFF)
+	else if (length == 3)
 	{
-		i += ft_putchar(c >> 12 | 0xE0);
-		i += ft_putchar((c >> 6 & 0x3F) | 0x80);
-		i += ft_putchar((c & 0x3F) | 0x80);
+		ft_putchar((char)(0xE0 | (c >> 12)));
+		ft_putchar((char)(((0x3f & (c >> 6))) | 0x80));
+		ft_putchar((char)((0x3f & c) | 0x80));
 	}
-	else if (c <= 0x10FFFF)
+	else if (length == 4)
 	{
-		i += ft_putchar(c >> 18 | 0xF0);
-		i += ft_putchar((c >> 12 & 0x3F) | 0x80);
-		i += ft_putchar((c >> 6 & 0x3F) | 0x80);
-		i += ft_putchar((c & 0x3F) | 0x80);
+		ft_putchar((char)0xF0 | (c >> 18));
+		ft_putchar((char)(((0x3f & (c >> 12))) | 0x80));
+		ft_putchar((char)(((0x3f & (c >> 6))) | 0x80));
+		ft_putchar((char)((0x3f & c) | 0x80));
 	}
-	return (i);
+	return (length);
 }

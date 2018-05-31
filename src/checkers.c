@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:20:56 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/30 17:48:41 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/31 13:28:56 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,19 +81,23 @@ int		duplicate_liaison(t_salle *salle, char **tab)
 
 int 	ft_check_line(t_info *colonie)
 {
-	char **tmp;
+	char	**tmp;
 
-	colonie->index = 0;
-	tmp = ft_strsplit(colonie->line, ' ');
+	colonie->line_split = ft_strsplit(colonie->line, ' ');
+	tmp = colonie->line_split;
 	if (ft_tablength(tmp) == 3)
-		get_room(colonie, tmp);
+	{
+		if (get_room(colonie))
+			exit(ft_printf("ERROR room existante ou x y\n", nettoyage_colonie(colonie)));
+	}
 	else if (ft_tablength(tmp) == 1 || tmp[0][0] == '#')
-		get_other(colonie, tmp[0]);
-	else
-		ft_putendl("Pas assez d element dans le **tab");
+	{
+		if (get_other(colonie, tmp[0]))
+			exit(ft_printf("ERROR commande inconnue\n", nettoyage_colonie(colonie)));
+	}
 	free_tab(tmp);
 	return (0);
-}		
+}
 
 void	ft_check_and_add(t_info *colonie)
 {
@@ -102,8 +106,8 @@ void	ft_check_and_add(t_info *colonie)
 		if (check_digit(colonie->line) == 0)
 			colonie->nb = ft_atoi(colonie->line);
 		else
-			exit(ft_printf("ERROR\n"));
+			exit(ft_printf("ERROR non digital\n", nettoyage_colonie(colonie)));
 	}
 	else if (ft_check_line(colonie) == 1)
-		exit(ft_printf("ERROR\n"));
+			exit(ft_printf("ERROR\n", nettoyage_colonie(colonie)));
 }

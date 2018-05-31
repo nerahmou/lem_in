@@ -6,7 +6,7 @@
 /*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/16 15:56:51 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/30 18:24:25 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/31 15:44:24 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,6 +19,7 @@ void	init_colonie(t_info *colonie)
 	colonie->index = 0;
 	colonie->text = NULL;
 	colonie->line = NULL;
+	colonie->line_split = NULL;
 	colonie->start = NULL;
 	colonie->end = NULL;
 	colonie->salle = NULL;
@@ -27,12 +28,8 @@ void	init_colonie(t_info *colonie)
 
 void	ft_lem_in(t_info *colonie)
 {
-	char *tmp;
-	while (get_next_line(0, &tmp) && ft_strcmp("", tmp))
+	while (get_next_line(0, &colonie->line) && ft_strcmp("", colonie->line))
 	{
-		colonie->line = ft_strdup(tmp);
-		ft_strdel(&tmp);
-		ft_printf("%i\n", ft_strcmp("", colonie->line));
 		ft_add_text(colonie);
 		ft_check_and_add(colonie);
 		ft_strdel(&colonie->line);
@@ -40,7 +37,9 @@ void	ft_lem_in(t_info *colonie)
 //	ft_print_list(colonie);
 //	ft_print_liaisons(colonie->salle);
 	ft_putendl(colonie->text);
+
 }
+
 
 int 	main(void)
 {

@@ -6,23 +6,25 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:16:35 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/30 17:55:41 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/31 13:41:36 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "./lem-in.h"
 
-int		get_room(t_info *colonie, char **salle)
+int		get_room(t_info *colonie)
 {
 	t_salle *tmp;
+	char	**salle;
 
 	tmp = colonie->salle;
+	salle = colonie->line_split;
 	if (salle[0][0] == 'L' || check_digit(salle[1]) || check_digit(salle[2]))
-		ft_putendl("mauvais format de salle");
+		return (1);
 	colonie->salle = add_donne(tmp, salle);
 	if (duplicate_room(colonie) == 1)
-		ft_putendl("duplicate room (meme nom de salle ou coordonnees)");
+		return (1);
 	return (0);
 }
 
@@ -32,16 +34,18 @@ int		get_tubes(t_info *colonie, char *tubes)
 	char **tab;
 
 	if (!colonie->start || !colonie->end)
-		ft_putendl("pas de start/end");
-	tab = ft_strsplit(tubes, '-');
+		exit(ft_printf("ERROR\n", nettoyage_colonie(colonie)));
+	colonie->line_split = ft_strsplit(tubes, '-');
+	tab = colonie->line_split;
 	if (ft_tablength(tab) != 2)
-		ft_putendl("Erreur : tab de tubes > ou <  a 2");
+		exit(ft_printf("ERROR\n", nettoyage_colonie(colonie)));
 	if (room_exist(colonie->salle, tab[0]) || room_exist(colonie->salle, tab[1]))
-		ft_putendl("Liaison impossible, une ou plusieurs room inexistante");
+		exit(ft_printf("ERROR\n", nettoyage_colonie(colonie)));
 	if (duplicate_liaison(colonie->salle, tab))
 		ft_putendl("Liaison existante");
 	add_liaison(colonie->salle, tab, 1);
 	free_tab(tab);
+	colonie->line_split = NULL;
 	return (0);
 }
 
@@ -53,7 +57,8 @@ char *get_other_next(t_info *colonie)
 	ft_strdel(&colonie->line);
 	get_next_line(0, &colonie->line);
 	ft_add_text(colonie);
-	ft_check_line(colonie);
+	if (ft_check_line(colonie))
+		exit(ft_printf("ERROR\n", nettoyage_colonie(colonie)));
 	tab = ft_strsplit(colonie->line, ' ');
 	if (tab[0][0] == '#')
 	{
@@ -62,6 +67,7 @@ char *get_other_next(t_info *colonie)
 	}
 	tmp = ft_strdup(tab[0]);
 	free_tab(tab);
+	colonie->line_split = NULL;
 	return (tmp);
 }
 
@@ -76,6 +82,6 @@ int	get_other(t_info *colonie, char *other)
 	else if (ft_strchr_occur(other, '-') == 1)
 		get_tubes(colonie, other);
 	else
-		ft_putendl("Pas de other");
+		return (1);
 	return (0);
 }
