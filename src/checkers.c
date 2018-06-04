@@ -6,12 +6,22 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:20:56 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/31 13:28:56 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/03 20:37:54 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "./lem-in.h"
+
+int		check_min(t_info *colonie)
+{
+	if (ft_lstlen(colonie->salle, get_next_salle) < 2)
+		return (ft_printf("pas asssezz de salle\n"));
+	if (!colonie->start || !colonie->end)
+		return (ft_printf("pas de start ou end\n"));
+	get_paths(colonie, NULL);
+	return (0);
+}
 
 int		check_digit(char *line)
 {
@@ -70,32 +80,44 @@ int		duplicate_liaison(t_salle *salle, char **tab)
 	tmp_co = tmp->co;
 	while (tmp_co)
 	{
-		if (ft_strcmp(tmp_co->connect, tab[1]) == 0)
+		if (ft_strcmp(tmp_co->salle->name, tab[1]) == 0)
 				return (1);
 		tmp_co = tmp_co->next;
 	}
 	return (0);
 }
 
-
+static	int check_whitespaces(char *str)
+{
+	if (str[0] == ' ' || str[ft_strlen(str) - 1] == ' ')
+		return (1);
+	return (0);
+}
 
 int 	ft_check_line(t_info *colonie)
 {
 	char	**tmp;
+	int		tab_len;
 
+	if (check_whitespaces(colonie->line))
+		exit(ft_printf("ERROR commande inconnue\n", nettoyage_colonie(colonie)));
 	colonie->line_split = ft_strsplit(colonie->line, ' ');
 	tmp = colonie->line_split;
-	if (ft_tablength(tmp) == 3)
+	tab_len = ft_tablength(tmp);
+	if (tab_len == 3)
 	{
 		if (get_room(colonie))
 			exit(ft_printf("ERROR room existante ou x y\n", nettoyage_colonie(colonie)));
 	}
-	else if (ft_tablength(tmp) == 1 || tmp[0][0] == '#')
+	else if (tab_len == 1 || tmp[0][0] == '#')
 	{
-		if (get_other(colonie, tmp[0]))
+		if (get_other(colonie, tmp[0], tab_len))
 			exit(ft_printf("ERROR commande inconnue\n", nettoyage_colonie(colonie)));
 	}
+	else
+		exit(ft_printf("ERROR commande inconnue\n", nettoyage_colonie(colonie)));
 	free_tab(tmp);
+	colonie->line_split = NULL;
 	return (0);
 }
 

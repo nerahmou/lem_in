@@ -6,7 +6,7 @@
 /*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/16 15:56:51 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/31 15:44:24 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/04 18:42:48 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,6 +34,10 @@ void	ft_lem_in(t_info *colonie)
 		ft_check_and_add(colonie);
 		ft_strdel(&colonie->line);
 	}
+	if (check_min(colonie))
+		exit(ft_printf("ERROR minimun invalide\n", nettoyage_colonie(colonie)));
+	
+
 //	ft_print_list(colonie);
 //	ft_print_liaisons(colonie->salle);
 	ft_putendl(colonie->text);

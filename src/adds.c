@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:27:01 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/31 12:27:12 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/03 18:33:23 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ void	ft_add_text(t_info *tab)
 	ft_strdel(&tmp);
 }
 
-t_salle	*add_donne(t_salle *colonie, char **salle)
+t_salle	*add_salle(t_salle *colonie, char **salle, int index)
 {
 	t_salle *ptr;
 	t_salle *link;
@@ -40,8 +40,10 @@ t_salle	*add_donne(t_salle *colonie, char **salle)
 	ptr = colonie;
 	link = malloc(sizeof(t_salle));
 	link->name = ft_strdup(salle[0]);
+	link->index = index;
 	link->x = ft_atoi(salle[1]);
 	link->y = ft_atoi(salle[2]);
+	link->is_full = 0;
 	link->next = NULL;
 	link->co = NULL;
 	if (ptr != NULL)
@@ -64,7 +66,7 @@ void	add_liaison(t_salle *salle, char **tab, int first_liaison)
 	new = malloc(sizeof(t_connection));
 	if (new == NULL)
 		return ;
-	new->connect = ft_strdup(tab[first_liaison == 1]);
+	new->salle = get_room_by_name(salle, tab[first_liaison == 1]);
 	new->next = NULL;
 	tmp = salle;
 	while (ft_strcmp(tmp->name, tab[first_liaison == 0]) != 0)

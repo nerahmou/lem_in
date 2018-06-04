@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/30 14:36:19 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/31 13:37:25 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/03 18:32:29 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,9 +19,9 @@ t_connection *nettoyage_connections(t_connection *connection)
 
 	while (connection)
 	{
-		ft_strdel(&connection->connect);
+//		ft_strdel(&connection->connect);
 		tmp = connection->next;
-		free(connection);
+//		free(connection);
 		connection = NULL;
 		connection = tmp;
 	}
@@ -46,9 +46,9 @@ t_salle *nettoyage_salles(t_salle *salle)
 void	*nettoyage_colonie(t_info *colonie)
 {
 	ft_strdel(&colonie->text);
-	ft_strdel(&colonie->start);
-	ft_strdel(&colonie->end);
 	ft_strdel(&colonie->line);
+//	ft_strdel(&colonie->start);
+//	ft_strdel(&colonie->end);
 	free_tab(colonie->line_split);
 	colonie->salle = nettoyage_salles(colonie->salle);
 	return (NULL);
@@ -57,18 +57,15 @@ void	*nettoyage_colonie(t_info *colonie)
 void	free_tab(char **tab)
 {
 	int i;
-	int a;
+//	int a;
 
 	i = 0;
-	a = 0;
+//	a = 0;
 	if (tab)
 	{
-		i = ft_tablength(tab);
-	while (i != a)
-	{
-		ft_strdel(&tab[a]);
-		a++;
-	}
+//		i = ft_tablength(tab);
+	while (tab[i])
+		ft_strdel(&tab[i++]);
 	free(tab);
 	}
 }

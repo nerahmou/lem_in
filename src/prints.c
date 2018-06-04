@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:15:10 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/30 19:55:18 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/03 18:50:19 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ void	ft_print_liaisons(t_salle *salle)
 		ft_printf("ROOM : %s\n\n", tmp->name);
 		while (tmp->co)
 		{	
-			ft_printf("\tLiaison : %s-%s\n", tmp->name, tmp->co->connect);
+			ft_printf("\tLiaison : %s-%s\n", tmp->name, tmp->co->salle->name);
 			tmp->co = tmp->co->next;
 		}
 		tmp = tmp->next;
@@ -41,8 +41,8 @@ void	ft_print_list(t_info *colonie)
 	ft_printf("\n\n*****************************--ROOMS--*****************************\n\n");
 	while (tmp != NULL)
 	{
-		ft_printf("Name : %s, x = %i, y = %i\n", tmp->name, tmp->x, tmp->y);
+		ft_printf("Name : %s, index : %i, x = %i, y = %i\n", tmp->name, tmp->index, tmp->x, tmp->y);
 		tmp = tmp->next;
 	}
-	ft_printf("start : %s, end : %s\n", colonie->start, colonie->end);
+	ft_printf("start : %s, end : %s\n", colonie->start->name, colonie->end->name);
 }
