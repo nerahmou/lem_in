@@ -6,7 +6,7 @@
 #    By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/30 13:54:18 by befuhro      #+#   ##    ##    #+#        #
-#    Updated: 2018/05/31 12:15:26 by nerahmou    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/06/07 14:20:24 by nerahmou    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -18,6 +18,9 @@ SRC_LEM =	main.c\
 			getters.c\
 			prints.c\
 			clears.c\
+			get_chemins.c\
+			set_salle2.c\
+			getters_salles.c\
 			adds.c
 
 SRC_LEM_IN = $(addprefix $(LEM_PATH),$(SRC_LEM))

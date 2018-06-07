@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:15:10 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/03 18:50:19 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/07 14:28:30 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,3 +46,29 @@ void	ft_print_list(t_info *colonie)
 	}
 	ft_printf("start : %s, end : %s\n", colonie->start->name, colonie->end->name);
 }
+
+void	ft_print_chemins(t_chemins *chemin)
+{
+	t_chemins *tmp_ch;
+	t_salle_2 *tmp_salle;
+	int		i;
+
+	i = 0;
+	tmp_ch = chemin;
+	ft_printf("\n\n*****************************--CHEMINS--*****************************\n\n");
+	while (tmp_ch != NULL)
+	{
+		i++;
+		tmp_salle = tmp_ch->salle;
+		ft_printf("LENGTH : [%zu]  |  ", tmp_ch->length);
+		while (tmp_salle)
+		{	
+			ft_printf("[%s] --->  ", tmp_salle->name);
+			tmp_salle = tmp_salle->next;
+		}
+		ft_printf("[NULL]\n\n");
+		tmp_ch = tmp_ch->next;
+	}
+	ft_printf("Nombre de chemins : (%i)\n", i);
+}
+

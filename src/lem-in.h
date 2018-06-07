@@ -6,7 +6,7 @@
 /*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/24 11:18:08 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/04 20:58:54 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 17:39:51 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,22 @@ typedef struct 			s_salle
 	struct s_salle 		*next;
 }						t_salle;
 
+typedef struct 			s_salle_2
+{
+	int		 			index;
+	char				*name;
+	int					is_full;
+	struct s_salle_2	*next;
+}						t_salle_2;
+
+typedef struct			s_chemins
+{
+	t_salle_2		*salle;
+	size_t			length;
+	struct s_chemins *next;
+}					t_chemins;
+
+
 typedef struct			s_info
 {
 	int					nb;
@@ -45,22 +61,8 @@ typedef struct			s_info
 	t_salle				*start;
 	t_salle				*end;
 	t_salle				*salle;
+	t_chemins			*chemins;
 }						t_info;
-
-typedef struct 			s_salle_2
-{
-	int		 			index;
-	char				*name;
-	int					is_full;
-	struct s_salle_2	*next;
-}						t_salle_2;
-
-
-typedef struct			s_chemins
-{
-	t_salle_2		*salle;
-	struct s_chemins *next;
-}					t_chemins;
 
 
 
@@ -82,16 +84,24 @@ int		get_tubes(t_info *colonie, char *tubes);
 int		get_other(t_info *colonie, char *other, int tab_len);
 t_salle	*get_other_next(t_info *colonie);
 void	*get_next_salle(void *lst);
+void	*get_next_salle2(void *lst);
+void	*get_next_chemin(void *lst);
 t_salle	*get_room_by_name(t_salle *salle, char *name);
-int		get_paths(t_info *colonie, t_salle *tmp);
+t_chemins	*get_paths(t_info *colonie);
+t_salle_2 *add_salle2(t_salle_2 *salle2, t_salle *salle);
+t_salle_2 *pop(t_salle_2 *salle);
+int	find_index_salle2(t_salle_2 *salle, int index, int end);
+t_salle_2 *dupl(t_salle_2 *dest, t_salle_2 *src);
+t_salle_2 *lstdup(t_salle_2 *salle);
 
 void	ft_print_liaisons(t_salle *salle);
 void	ft_print_list(t_info *colonie);
+void	ft_print_chemins(t_chemins *chemin);
 
 void			free_tab(char **tab);
 t_connection	*nettoyage_connections(t_connection *connection);
 t_salle			*nettoyage_salles(t_salle *salle);
+t_salle_2		*nettoyage_salle2(t_salle_2 *salle);
 void			*nettoyage_colonie(t_info *colonie);
-
 void	exit_error(t_info *colonie);
 #endif

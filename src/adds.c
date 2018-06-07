@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:27:01 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/03 18:33:23 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 17:24:15 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,12 +32,12 @@ void	ft_add_text(t_info *tab)
 	ft_strdel(&tmp);
 }
 
-t_salle	*add_salle(t_salle *colonie, char **salle, int index)
+t_salle	*add_salle(t_salle *salle_co, char **salle, int index)
 {
 	t_salle *ptr;
 	t_salle *link;
 
-	ptr = colonie;
+	ptr = salle_co;
 	link = malloc(sizeof(t_salle));
 	link->name = ft_strdup(salle[0]);
 	link->index = index;
@@ -53,8 +53,8 @@ t_salle	*add_salle(t_salle *colonie, char **salle, int index)
 		ptr->next = link;
 	}
 	else
-		colonie = link;
-	return (colonie);
+		salle_co = link;
+	return (salle_co);
 }
 
 void	add_liaison(t_salle *salle, char **tab, int first_liaison)

@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:20:56 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/03 20:37:54 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 17:22:23 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,10 @@ int		check_min(t_info *colonie)
 		return (ft_printf("pas asssezz de salle\n"));
 	if (!colonie->start || !colonie->end)
 		return (ft_printf("pas de start ou end\n"));
-	get_paths(colonie, NULL);
+	colonie->chemins = get_paths(colonie);
+	ft_print_chemins(colonie->chemins);
+	if (!ft_lstlen(colonie->chemins, &get_next_chemin))
+		return (ft_printf("pas de chemin possible de start a end\n"));
 	return (0);
 }
 

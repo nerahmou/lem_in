@@ -6,12 +6,28 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/30 14:36:19 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/03 18:32:29 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 16:48:52 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "lem-in.h"
+
+t_salle_2	*nettoyage_salle2(t_salle_2 *salle)
+{
+	t_salle_2 *tmp;
+
+	while (salle)
+	{
+		ft_strdel(&salle->name);
+		tmp = salle->next;
+		free(salle);
+		salle = NULL;
+		salle = tmp;
+	}
+	return (NULL);
+}
+
 
 t_connection *nettoyage_connections(t_connection *connection)
 {

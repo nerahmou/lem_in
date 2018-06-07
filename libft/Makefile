@@ -6,11 +6,11 @@
 #    By: nerahmou <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 09:17:07 by nerahmou          #+#    #+#              #
-#    Updated: 2018/05/31 12:12:34 by nerahmou    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/06/07 14:25:45 by nerahmou    ###    #+. /#+    ###.fr      #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all, clean, fclean, make_printf
+.PHONY: all clean fclean re make_printf
 .SUFFIXES:
 
 NAME = libft.a
@@ -133,10 +133,11 @@ $(NAME): make_printf $(OBJ) $(INC)
 	@echo "Library created 👍 \n"
 
 $(OBJ_PATH)/%.o: %.c
+	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@$(CC) $(CFLAGS) -c $^ -o $@
 
 make_printf:
-	@make -C printf/ 
+	make -C printf
 
 clean:
 	@rm -rf $(OBJ_PATH)
