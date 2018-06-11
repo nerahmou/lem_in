@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:27:01 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 17:24:15 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/08 16:29:59 by edbernie    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,9 +59,9 @@ t_salle	*add_salle(t_salle *salle_co, char **salle, int index)
 
 void	add_liaison(t_salle *salle, char **tab, int first_liaison)
 {
-	t_salle		 *tmp;
-	t_connection *new;
-	t_connection *tmp_co;
+	t_salle			*tmp;
+	t_connection	*new;
+	t_connection	*tmp_co;
 
 	new = malloc(sizeof(t_connection));
 	if (new == NULL)

@@ -6,20 +6,19 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 16:49:56 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 17:24:44 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/08 16:42:44 by edbernie    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-t_salle_2 *add_salle2(t_salle_2 *salle2, t_salle *salle)
+t_salle_2	*add_salle2(t_salle_2 *salle2, t_salle *salle)
 {
 	t_salle_2 *tmp;
 	t_salle_2 *link;
 
 	tmp = salle2;
-
 	link = malloc(sizeof(t_salle_2));
 	link->name = ft_strdup(salle->name);
 	link->index = salle->index;
@@ -36,7 +35,7 @@ t_salle_2 *add_salle2(t_salle_2 *salle2, t_salle *salle)
 	return (salle2);
 }
 
-t_salle_2 *pop(t_salle_2 *salle)
+t_salle_2	*pop(t_salle_2 *salle)
 {
 	t_salle_2 *tmp;
 
@@ -48,7 +47,7 @@ t_salle_2 *pop(t_salle_2 *salle)
 	return (salle);
 }
 
-int	find_index_salle2(t_salle_2 *salle, int index, int end)
+int			find_index_salle2(t_salle_2 *salle, int index, int end)
 {
 	t_salle_2 *tmp;
 
@@ -62,7 +61,7 @@ int	find_index_salle2(t_salle_2 *salle, int index, int end)
 	return (0);
 }
 
-t_salle_2 *dupl(t_salle_2 *dest, t_salle_2 *src)
+t_salle_2	*dupl(t_salle_2 *dest, t_salle_2 *src)
 {
 	t_salle_2 *tmp;
 	t_salle_2 *new;
@@ -84,14 +83,14 @@ t_salle_2 *dupl(t_salle_2 *dest, t_salle_2 *src)
 	return (dest);
 }
 
-t_salle_2 *lstdup(t_salle_2 *salle)
+t_salle_2	*lstdup(t_salle_2 *salle)
 {
 	t_salle_2 *new;
 	t_salle_2 *tmp;
 
 	new = NULL;
 	if (!salle)
-		return NULL;
+		return (NULL);
 	tmp = salle;
 	while (tmp)
 	{
@@ -100,4 +99,3 @@ t_salle_2 *lstdup(t_salle_2 *salle)
 	}
 	return (new);
 }
-
