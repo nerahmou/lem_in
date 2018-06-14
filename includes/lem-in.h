@@ -62,7 +62,6 @@ typedef struct			s_info
 	t_salle				*end;
 	t_salle				*salle;
 	t_chemins			*chemins;
-	FILE				*graph_file;
 }						t_info;
 
 

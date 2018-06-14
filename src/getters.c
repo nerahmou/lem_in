@@ -46,6 +46,7 @@ int		get_tubes(t_info *colonie, char *tubes)
 		ft_putendl("Liaison existante");
 	else
 		add_liaison(colonie->salle, tab, 1);
+	fprintf(colonie->graph_file, "\t%s -- %s;\n", tab[0], tab[1]);
 	free_tab(tab);
 	colonie->line_split = NULL;
 	return (0);

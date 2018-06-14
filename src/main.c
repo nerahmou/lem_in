@@ -11,7 +11,7 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "./lem-in.h"
 
 void	init_colonie(t_info *colonie)
 {
@@ -24,7 +24,10 @@ void	init_colonie(t_info *colonie)
 	colonie->end = NULL;
 	colonie->salle = NULL;
 	colonie->chemins = NULL;
-
+	colonie->graph_file = fopen("graph.out", "w");
+	if (colonie->graph_file == NULL)
+		exit(1);
+	fprintf(colonie->graph_file, "graph my_graph\n{\n");
 }
 
 void	ft_lem_in(t_info *colonie)
@@ -35,10 +38,13 @@ void	ft_lem_in(t_info *colonie)
 		ft_check_and_add(colonie);
 		ft_strdel(&colonie->line);
 	}
+	fprintf(colonie->graph_file, "}\n");
+	fclose(colonie->graph_file);
 	//ft_print_liaisons(colonie->salle);
 	if (check_min(colonie))
 	;//	exit(ft_printf("ERROR minimun invalide\n", nettoyage_colonie(colonie)));
-	
+	system("dot -T png -O graph.out");
+	system("open graph.out.png");
 
 //	ft_print_list(colonie);
 	ft_putendl(colonie->text);

@@ -20,7 +20,7 @@ int		check_min(t_info *colonie)
 	if (!colonie->start || !colonie->end)
 		return (ft_printf("pas de start ou end\n"));
 	colonie->chemins = get_paths(colonie);
-	ft_print_chemins(colonie->chemins);
+//	ft_print_chemins(colonie->chemins);
 	if (!ft_lstlen(colonie->chemins, &get_next_chemin))
 		return (ft_printf("pas de chemin possible de start a end\n"));
 	return (0);

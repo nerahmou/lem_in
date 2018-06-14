@@ -11,7 +11,10 @@
 #                                                         /                    #
 # **************************************************************************** #
 
+.PHONY: all clean fclean re
+
 LEM_PATH = src/
+LEM_INC = includes/
 
 SRC_LEM =	main.c\
 			checkers.c\
@@ -28,13 +31,11 @@ OBJ_LEM_PATH = obj/
 OBJ_LEM = $(SRC_LEM:.c=.o)
 OBJ = $(addprefix $(OBJ_LEM_PATH),$(OBJ_LEM))
 LIBFT_PATH = libft/
-INCLUDES = .
-LIBFT_INCLUDES = $(addprefix $(LIBFT_PATH),$(INCLUDES))
+LIBFT_INCLUDES = $(addprefix $(LIBFT_PATH),includes/)
 CC = clang -g
 CFLAGS = -Wall -Wextra -Werror
 NAME = lem-in
 
-.PHONY: all clean fclean re
 
 all: $(NAME) 
 
@@ -48,6 +49,7 @@ $(OBJ_LEM_PATH)%.o: $(LEM_PATH)%.c
 	@echo "COMPILATION DE $< EN $@"
 	@$(CC) $(CFLAGS) -I $(LIBFT_INCLUDES) -o $@ -c $<
 
+	
 clean:
 	@echo "SUPPRESSION FICHIER LEM-IN .O"
 	@rm -rf $(OBJ_LEM_PATH) lem-in.dSYM

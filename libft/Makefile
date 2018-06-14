@@ -6,18 +6,39 @@
 #    By: nerahmou <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 09:17:07 by nerahmou          #+#    #+#              #
-#    Updated: 2018/06/07 14:25:45 by nerahmou    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/03/07 07:35:58 by nerahmou    ###    #+. /#+    ###.fr      #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all clean fclean re make_printf
+.PHONY: all, clean, fclean
 .SUFFIXES:
 
-NAME = libft.a
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+_END=$'\x1b[0m
+_BOLD=$'\x1b[1m
+_UNDER=$'\x1b[4m
+_ICYAN=$'\x1b[46m
+_IGREY=$'\x1b[40m
+_IRED=$'\x1b[41m
+_IGREEN=$'\x1b[42m
+_IYELLOW=$'\x1b[43m
 
-SRC =	ft_memchr.c\
+AR= libft.a
+CC = gcc -g
+CFLAGS = -Wall -Wextra -Werror
+PATH_OBJ = ./objs/
+PATH_SRC = ./srcs/
+PATH_INC = ./includes/
+INCS = $(addprefix $(PATH_INC), libft.h)
+INCS += $(addprefix $(PATH_INC), ft_printf.h)
+
+
+#******************************************************************************#
+#                                    LIBFT                                     #
+#******************************************************************************#
+
+PATH_OBJ_LIB = $(PATH_OBJ)lib/
+PATH_SRC_LIB = $(PATH_SRC)lib/
+FILES_LIB =	ft_memchr.c\
 		ft_putstr.c\
 		ft_strjoin.c\
 		ft_strsplit.c\
@@ -95,11 +116,31 @@ SRC =	ft_memchr.c\
 		ft_uintlen.c\
 		ft_wcharlen.c\
 		ft_lstlen.c\
-		ft_strchr_occur.c\
 		ft_tablength.c\
-		get_next_line.c
+		ft_strchr_occur.c
 
-SRC_PRF =	ft_printf.c\
+OBJ_LIB = $(addprefix $(PATH_OBJ_LIB), $(FILES_LIB:.c=.o))
+SRC_LIB = $(addprefix $(PATH_SRC_LIB), $(FILES_LIB))
+
+
+#******************************************************************************#
+#                                    GNL                                   #
+#******************************************************************************#
+
+
+PATH_OBJ_GNL = $(PATH_OBJ)GNL/
+PATH_SRC_GNL = $(PATH_SRC)GNL/
+FILES_GNL = get_next_line.c
+
+OBJ_GNL = $(addprefix $(PATH_OBJ_GNL), $(FILES_GNL:.c=.o))
+SRC_GNL = $(addprefix $(PATH_SRC_GNL), $(FILES_GNL))
+#******************************************************************************#
+#                                    PRINT_F                                   #
+#******************************************************************************#
+
+PATH_OBJ_PRF = $(PATH_OBJ)printf/
+PATH_SRC_PRF = $(PATH_SRC)printf/
+FILES_PRF =	ft_printf.c\
 			get_attributs.c \
 			check_attributs.c \
 			check_color_style.c \
@@ -117,34 +158,41 @@ SRC_PRF =	ft_printf.c\
 			print_m.c \
 			nbr_size.c
 
-OBJ_PATH = ./obj
 
-OBJ_NAME = $(SRC:.c=.o)
-OBJ_NAME += $(SRC_PRF:.c=.o)
 
-OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
+OBJ_PRF = $(addprefix $(PATH_OBJ_PRF), $(FILES_PRF:.c=.o))
+SRC_PRF = $(addprefix $(PATH_SRC_PRF), $(FILES_PRF))
 
-INC = libft.h
+#******************************************************************************#
+#                                    ALL                                       #
+#******************************************************************************#
+PATHS_OBJ = $(PATH_OBJ) $(PATH_OBJ_LIB) $(PATH_OBJ_PRF) $(PATH_OBJ_GNL)
 
-all: $(NAME)
+OBJS = $(OBJ_LIB) $(OBJ_PRF) $(OBJ_GNL)
 
-$(NAME): make_printf $(OBJ) $(INC)
-	@ar rcs $(NAME) $(OBJ)
+SRCS = $(SRC_LIB) $(SRC_PRF) $(OBJ_GNL)
+
+FILES = $(FILES_LIB) $(FILES_PRF) $(FILES_GNL)
+
+all: $(AR)
+
+$(AR): $(PATHS_OBJ) $(OBJS) $(INCS)
+	@ar rcs $(AR) $(OBJS)
 	@echo "Library created 👍 \n"
 
-$(OBJ_PATH)/%.o: %.c
-	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	@$(CC) $(CFLAGS) -c $^ -o $@
+$(PATHS_OBJ):
+	@mkdir $@
 
-make_printf:
-	make -C printf
+$(PATH_OBJ)%.o: $(PATH_SRC)%.c
+	@echo "[$(_BOLD)$(_IRED)$(notdir $<)\033[0;0m] -> [$(_BOLD)$(_IGREEN)$(notdir $@)\033[0;0m]"
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(PATH_INC)
 
 clean:
-	@rm -rf $(OBJ_PATH)
+	@rm -rf $(PATH_OBJ)
 	@echo	"Clean libft O.K.\n"
 	
 fclean: clean
-	@rm -f $(NAME)
+	@rm -f $(AR)
 	@echo	"Fclean libft O.K.\n"
 
 re: fclean all
