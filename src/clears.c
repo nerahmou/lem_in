@@ -6,44 +6,28 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/30 14:36:19 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 16:48:52 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/11 19:57:15 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-t_salle_2	*nettoyage_salle2(t_salle_2 *salle)
-{
-	t_salle_2 *tmp;
-
-	while (salle)
-	{
-		ft_strdel(&salle->name);
-		tmp = salle->next;
-		free(salle);
-		salle = NULL;
-		salle = tmp;
-	}
-	return (NULL);
-}
-
-
-t_connection *nettoyage_connections(t_connection *connection)
+t_connection	*nettoyage_connections(t_connection *connection)
 {
 	t_connection *tmp;
 
 	while (connection)
 	{
-//		ft_strdel(&connection->connect);
 		tmp = connection->next;
-//		free(connection);
+		free(connection);
 		connection = NULL;
 		connection = tmp;
 	}
-	return NULL;
+	return (NULL);
 }
-t_salle *nettoyage_salles(t_salle *salle)
+
+t_salle			*nettoyage_salles(t_salle *salle)
 {
 	t_salle *tmp;
 
@@ -56,34 +40,43 @@ t_salle *nettoyage_salles(t_salle *salle)
 		salle = NULL;
 		salle = tmp;
 	}
-	return NULL;
-}
-
-void	*nettoyage_colonie(t_info *colonie)
-{
-	ft_strdel(&colonie->text);
-	ft_strdel(&colonie->line);
-//	ft_strdel(&colonie->start);
-//	ft_strdel(&colonie->end);
-	free_tab(colonie->line_split);
-	colonie->salle = nettoyage_salles(colonie->salle);
 	return (NULL);
 }
 
-void	free_tab(char **tab)
+t_chemins		*nettoyage_chemin(t_chemins *chemin)
 {
-	int i;
-//	int a;
+	t_chemins *tmp;
 
-	i = 0;
-//	a = 0;
-	if (tab)
+	while (chemin)
 	{
-//		i = ft_tablength(tab);
-	while (tab[i])
-		ft_strdel(&tab[i++]);
-	free(tab);
+		chemin->salle = nettoyage_salle2(chemin->salle);
+		tmp = chemin->next;
+		free(chemin);
+		chemin = NULL;
+		chemin = tmp;
 	}
+	return (NULL);
 }
 
+void			*nettoyage_colonie(t_info *colonie)
+{
+	ft_strdel(&colonie->text);
+	ft_strdel(&colonie->line);
+	free_tab(colonie->line_split);
+	colonie->salle = nettoyage_salles(colonie->salle);
+	colonie->chemins = nettoyage_chemin(colonie->chemins);
+	return (NULL);
+}
 
+void			free_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	if (tab)
+	{
+		while (tab[i])
+			ft_strdel(&tab[i++]);
+		free(tab);
+	}
+}

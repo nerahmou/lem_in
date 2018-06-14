@@ -6,19 +6,19 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 16:46:06 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 17:24:25 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/08 17:14:52 by edbernie    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-void *get_next_chemin(void *chemin)
+void		*get_next_chemin(void *chemin)
 {
 	return (((t_chemins*)chemin)->next);
 }
 
-t_chemins *insert(t_chemins *chemin, t_chemins *tmp, t_chemins *new)
+t_chemins	*insert(t_chemins *chemin, t_chemins *tmp, t_chemins *new)
 {
 	t_chemins *prev;
 
@@ -62,7 +62,8 @@ t_chemins	*push_chemin(t_chemins *chemin, t_salle_2 *salle)
 	return (chemin);
 }
 
-void	backtracking(t_salle *salle, t_chemins **chemin, t_salle_2 *tmp, int end)
+void		backtracking(t_salle *salle, t_chemins **chemin, t_salle_2 *tmp,
+		int end)
 {
 	t_connection *tmp_co;
 
@@ -80,7 +81,7 @@ void	backtracking(t_salle *salle, t_chemins **chemin, t_salle_2 *tmp, int end)
 			if (!find_index_salle2(tmp, tmp_co->salle->index, end))
 			{
 				tmp = add_salle2(tmp, salle);
-				backtracking(tmp_co->salle, chemin, tmp , end);
+				backtracking(tmp_co->salle, chemin, tmp, end);
 				tmp = pop(tmp);
 			}
 			tmp_co = tmp_co->next;
@@ -90,19 +91,21 @@ void	backtracking(t_salle *salle, t_chemins **chemin, t_salle_2 *tmp, int end)
 
 t_chemins	*get_paths(t_info *colonie)
 {
-	t_chemins	*chemin;
-	t_salle		*start;
-	t_salle_2  	*tmp;
+	t_chemins		*chemin;
+	t_salle			*start;
+	t_salle_2		*tmp;
+	t_connection	*tmp_co;
 
 	chemin = NULL;
 	tmp = NULL;
 	start = colonie->start;
-	while (start->co)
+	tmp_co = colonie->start->co;
+	while (tmp_co)
 	{
 		tmp = add_salle2(tmp, start);
-		backtracking(start->co->salle, &chemin, tmp, colonie->end->index);
+		backtracking(tmp_co->salle, &chemin, tmp, colonie->end->index);
 		tmp = nettoyage_salle2(tmp);
-		start->co = start->co->next;
+		tmp_co = tmp_co->next;
 	}
 	return (chemin);
 }

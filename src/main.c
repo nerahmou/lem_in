@@ -6,7 +6,7 @@
 /*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/16 15:56:51 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 17:22:39 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/11 19:58:54 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,12 +47,13 @@ void	ft_lem_in(t_info *colonie)
 	system("open graph.out.png");
 
 //	ft_print_list(colonie);
+	if (check_min(colonie))
+		;
+	ft_print_chemins(colonie->chemins);
 	ft_putendl(colonie->text);
-
 }
 
-
-int 	main(void)
+int		main(void)
 {
 	t_info colonie;
 

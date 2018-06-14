@@ -6,12 +6,12 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:16:35 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 16:51:43 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/08 16:34:57 by edbernie    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "./lem-in.h"
+#include "lem-in.h"
 
 int		get_room(t_info *colonie)
 {
@@ -29,21 +29,21 @@ int		get_room(t_info *colonie)
 	return (0);
 }
 
-
 int		get_tubes(t_info *colonie, char *tubes)
 {
 	char **tab;
 
 	if (!colonie->start || !colonie->end)
-		exit(ft_printf("ERROR\n", nettoyage_colonie(colonie)));
+		ft_error(colonie);
 	colonie->line_split = ft_strsplit(tubes, '-');
 	tab = colonie->line_split;
 	if (ft_tablength(tab) != 2)
-		exit(ft_printf("ERROR\n", nettoyage_colonie(colonie)));
-	if (room_exist(colonie->salle, tab[0]) || room_exist(colonie->salle, tab[1]))
-		exit(ft_printf("ERROR\n", nettoyage_colonie(colonie)));
+		ft_error(colonie);
+	if (room_exist(colonie->salle, tab[0]) ||
+			room_exist(colonie->salle, tab[1]))
+		ft_error(colonie);
 	if (duplicate_liaison(colonie->salle, tab))
-		ft_putendl("Liaison existante");
+		;
 	else
 		add_liaison(colonie->salle, tab, 1);
 	fprintf(colonie->graph_file, "\t%s -- %s;\n", tab[0], tab[1]);
@@ -52,22 +52,21 @@ int		get_tubes(t_info *colonie, char *tubes)
 	return (0);
 }
 
-t_salle *get_other_next(t_info *colonie)
+t_salle	*get_other_next(t_info *colonie)
 {
 	char	**tab;
-	t_salle *tmp;
-
+	t_salle	*tmp;
 
 	ft_strdel(&colonie->line);
 	get_next_line(0, &colonie->line);
 	ft_add_text(colonie);
 	if (ft_check_line(colonie))
-		exit(ft_printf("ERROR\n", nettoyage_colonie(colonie)));
+		ft_error(colonie);
 	tab = ft_strsplit(colonie->line, ' ');
 	if (tab[0][0] == '#')
 	{
 		free_tab(tab);
-		return(NULL);
+		return (NULL);
 	}
 	tmp = get_room_by_name(colonie->salle, tab[0]);
 	free_tab(tab);
@@ -75,13 +74,13 @@ t_salle *get_other_next(t_info *colonie)
 	return (tmp);
 }
 
-int	get_other(t_info *colonie, char *other, int tab_len)
+int		get_other(t_info *colonie, char *other, int tab_len)
 {
 	if (ft_strcmp(other, "##start") == 0 && tab_len == 1)
 		colonie->start = get_other_next(colonie);
 	else if (strcmp(other, "##end") == 0 && tab_len == 1)
 		colonie->end = get_other_next(colonie);
-	else if (other[0] == '#' && other[1] != '#')
+	else if (other[0] == '#')
 		;
 	else if (ft_strchr_occur(other, '-') == 1 && tab_len == 1)
 		get_tubes(colonie, other);
