@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/29 13:51:21 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/21 17:10:30 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/12 20:16:07 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -118,7 +118,7 @@ void				ft_lstclear(void *content, size_t size);
 size_t				ft_char_pos(char *str, char c);
 int					ft_countwords(char *str, char c);
 int					ft_intlen(intmax_t n, int base);
-size_t				ft_lstlen(void *lst, void* (ptr)(void *));
+size_t				ft_lstlen(void *lst, void*(*ptr)(void*));
+int					ft_strchr_occur(char *s, int c);
 int					ft_tablength(char **tab);
-int					ft_strchr_occur(char *tab, int c);
 #endif

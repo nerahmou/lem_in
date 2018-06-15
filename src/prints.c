@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:15:10 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/08 17:03:29 by edbernie    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/12 19:16:04 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,7 @@ void	ft_print_chemins(t_chemins *chemin)
 	{
 		i++;
 		tmp_salle = tmp_ch->salle;
-		ft_printf("LENGTH : [%zu]  |  ", tmp_ch->length);
+		ft_printf("LENGTH : [%zu]  | NB_CONNECT : {%zu} ", tmp_ch->length, tmp_ch->nb_connections);
 		while (tmp_salle)
 		{
 			ft_printf("[%s] --->  ", tmp_salle->name);

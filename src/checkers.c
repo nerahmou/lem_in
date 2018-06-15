@@ -19,7 +19,6 @@ int		check_min(t_info *colonie)
 	if (!colonie->start || !colonie->end)
 		ft_error(colonie);
 	colonie->chemins = get_paths(colonie);
-//	ft_print_chemins(colonie->chemins);
 	if (!ft_lstlen(colonie->chemins, &get_next_chemin))
 		ft_error(colonie);
 	return (0);

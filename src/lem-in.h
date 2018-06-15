@@ -6,7 +6,7 @@
 /*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/24 11:18:08 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/08 16:51:31 by edbernie    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/14 19:49:20 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,9 +14,9 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-# include "libft.h"
+# include "../libft/includes/libft.h"
 
-typedef struct	s_salle t_salle;
+typedef struct			s_salle t_salle;
 
 typedef struct			s_connection
 {
@@ -47,8 +47,9 @@ typedef struct			s_chemins
 {
 	t_salle_2			*salle;
 	size_t				length;
+	size_t				nb_connections;
 	struct s_chemins 	*next;
-}					t_chemins;
+}						t_chemins;
 
 typedef struct			s_info
 {
@@ -61,6 +62,7 @@ typedef struct			s_info
 	t_salle				*end;
 	t_salle				*salle;
 	t_chemins			*chemins;
+	t_chemins			*chemins_un;
 	FILE				*graph_file;
 }						t_info;
 

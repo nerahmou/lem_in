@@ -6,12 +6,12 @@
 /*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/16 15:56:51 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/11 19:58:54 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/14 19:46:49 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "./lem-in.h"
+#include "lem-in.h"
 
 void	init_colonie(t_info *colonie)
 {
@@ -24,6 +24,7 @@ void	init_colonie(t_info *colonie)
 	colonie->end = NULL;
 	colonie->salle = NULL;
 	colonie->chemins = NULL;
+	colonie->chemins_un = NULL;
 	colonie->graph_file = fopen("graph.out", "w");
 	if (colonie->graph_file == NULL)
 		exit(1);
@@ -40,16 +41,11 @@ void	ft_lem_in(t_info *colonie)
 	}
 	fprintf(colonie->graph_file, "}\n");
 	fclose(colonie->graph_file);
-	//ft_print_liaisons(colonie->salle);
-	if (check_min(colonie))
-	;//	exit(ft_printf("ERROR minimun invalide\n", nettoyage_colonie(colonie)));
-	system("dot -T png -O graph.out");
-	system("open graph.out.png");
-
-//	ft_print_list(colonie);
 	if (check_min(colonie))
 		;
-	ft_print_chemins(colonie->chemins);
+//	ft_print_chemins(colonie->chemins);
+	system("dot -T png -O graph.out");
+	system("open graph.out.png");
 	ft_putendl(colonie->text);
 }
 

@@ -1,0 +1,20 @@
+graph my_graph
+{
+	start -- A;
+	start -- J;
+	start -- D;
+	A -- G;
+	A -- B;
+	D -- E;
+	E -- F;
+	F -- C;
+	B -- C;
+	C -- end;
+	J -- B;
+	B -- K;
+	K -- l;
+	l -- end;
+	G -- H;
+	H -- I;
+	I -- end;
+}

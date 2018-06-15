@@ -6,15 +6,24 @@
 #    By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/30 13:54:18 by befuhro      #+#   ##    ##    #+#        #
-#    Updated: 2018/06/07 14:20:24 by nerahmou    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/06/14 19:39:24 by nerahmou    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 .PHONY: all clean fclean re
 
+_END=$'\x1b[0m
+_BOLD=$'\x1b[1m
+_UNDER=$'\x1b[4m
+_ICYAN=$'\x1b[46m
+_IGREY=$'\x1b[40m
+_IRED=$'\x1b[41m
+_IGREEN=$'\x1b[42m
+_IYELLOW=$'\x1b[43m
+
+
 LEM_PATH = src/
-LEM_INC = includes/
 
 SRC_LEM =	main.c\
 			checkers.c\
@@ -24,16 +33,18 @@ SRC_LEM =	main.c\
 			get_chemins.c\
 			set_salle2.c\
 			getters_salles.c\
-			adds.c
+			adds.c\
+			ft_error.c
 
 SRC_LEM_IN = $(addprefix $(LEM_PATH),$(SRC_LEM))
 OBJ_LEM_PATH = obj/
 OBJ_LEM = $(SRC_LEM:.c=.o)
 OBJ = $(addprefix $(OBJ_LEM_PATH),$(OBJ_LEM))
 LIBFT_PATH = libft/
-LIBFT_INCLUDES = $(addprefix $(LIBFT_PATH),includes/)
+INCLUDES = .
+LIBFT_INCLUDES = $(addprefix $(LIBFT_PATH),$(INCLUDES))
 CC = clang -g
-CFLAGS = -Wall -Wextra -Werror
+#CFLAGS = -Wall -Wextra -Werror
 NAME = lem-in
 
 
@@ -46,10 +57,10 @@ $(NAME): $(OBJ)
 
 $(OBJ_LEM_PATH)%.o: $(LEM_PATH)%.c
 	@mkdir $(OBJ_LEM_PATH) 2> /dev/null || true
-	@echo "COMPILATION DE $< EN $@"
+	@echo "COMPILATION DE ($(_BOLD)$(_IRED)$(notdir $<)$(_END)) EN ($(_BOLD)$(_IGREEN)$(notdir $@)$(_END))"
 	@$(CC) $(CFLAGS) -I $(LIBFT_INCLUDES) -o $@ -c $<
+	@clear
 
-	
 clean:
 	@echo "SUPPRESSION FICHIER LEM-IN .O"
 	@rm -rf $(OBJ_LEM_PATH) lem-in.dSYM
