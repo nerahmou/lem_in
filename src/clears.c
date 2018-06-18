@@ -6,12 +6,12 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/30 14:36:19 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/11 19:57:15 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/18 14:30:43 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 t_connection	*nettoyage_connections(t_connection *connection)
 {

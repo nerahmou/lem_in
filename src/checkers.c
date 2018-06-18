@@ -10,7 +10,7 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 int		check_min(t_info *colonie)
 {
@@ -21,6 +21,9 @@ int		check_min(t_info *colonie)
 	colonie->chemins = get_paths(colonie);
 	if (!ft_lstlen(colonie->chemins, &get_next_chemin))
 		ft_error(colonie);
+
+	ft_printf("%s\n\n", colonie->text);
+	select_path(colonie);
 	return (0);
 }
 

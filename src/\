@@ -1,0 +1,180 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   travel.c                                         .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/06/18 14:29:41 by nerahmou     #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/18 19:04:36 by nerahmou    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
+#include "lem_in.h"
+
+void	go_direct(t_info *colonie)
+{
+	int	nb_ants;
+
+	nb_ants = 1;
+	while (colonie->nb)
+	{
+		ft_printf("L%d-%s ", nb_ants++, colonie->chemins->salle->next->name);
+		colonie->nb--;
+	}
+	ft_putchar('\n');
+}
+
+void	go_short(t_info *colonie)
+{
+	int			nb_ants;
+	int			ant_num;
+	t_salle_2	*end;
+	t_salle_2	*tmp;
+
+	nb_ants = colonie->nb;
+	ant_num = 0;
+	end = get_last_salle2(colonie->chemins->salle);
+	tmp = end->prev;
+	colonie->chemins->salle->is_full = nb_ants;
+	while (end->is_full != nb_ants)
+	{
+		while (tmp && end->is_full != nb_ants)
+		{
+			if (tmp->is_full)
+			{
+				if (tmp->index == colonie->start->index)
+				{
+					tmp->is_full--;
+					tmp->next->is_full = ++ant_num;
+					ft_printf("L%d-%s ", tmp->next->is_full, tmp->next->name);
+				}
+				else
+				{
+					if (tmp->next == end)
+						tmp->next->is_full++;
+					else
+						tmp->next->is_full = tmp->is_full;
+					ft_printf("L%d-%s ", tmp->is_full, tmp->next->name);
+				}
+			}
+			tmp = tmp->prev;
+		}
+		tmp = end->prev;
+		ft_putchar('\n');
+	}
+}
+
+void	go_uniq(t_info *colonie)
+{
+	int			nb_ants;
+	int			ant_num;
+	int			nb_end;
+	t_chemins	*chemins;
+	t_salle_2	*tmp;
+
+	nb_ants = colonie->nb;
+	ant_num = 0;
+	nb_end = 0;
+	tmp = get_last_salle2(colonie->chemins->salle)->prev;
+	colonie->chemins->salle->is_full = nb_ants;
+	while (nb_end != nb_ants)
+	{
+		chemins = colonie->chemins;
+		while (chemins)
+		{
+			while (tmp && nb_end != nb_ants)
+			{
+				if (tmp->is_full)
+				{
+					if (tmp->index == colonie->start->index)
+					{
+						if (chemins->nb_tosend)
+						{
+							chemins->nb_tosend--;
+							tmp->is_full--;
+							tmp->next->is_full = ++ant_num;
+							ft_printf("L%d-%s ", tmp->next->is_full, tmp->next->name);
+						}
+					}
+					else
+					{
+						if (tmp->next->next == NULL)
+							nb_end++;
+						else
+							tmp->next->is_full = tmp->is_full;
+						ft_printf("L%d-%s ", tmp->is_full, tmp->next->name);
+					}
+				}
+				tmp = tmp->prev;
+			}
+			chemins = chemins->next;
+			tmp = get_last_salle2(colonie->chemins->salle)->prev;
+		}
+		ft_putchar('\n');
+	}
+
+}
+
+int	get_max_nbmov(t_chemins *chemins)
+{
+	t_chemins	*tmp;
+	size_t		moves_max;
+
+	tmp = chemins->next;
+	moves_max = chemins->nb_tosend + (tmp->length - 2);
+	while (tmp)
+	{
+		if (tmp->nb_tosend + (tmp->length - 2) > moves_max)
+			moves_max = tmp->nb_tosend + (tmp->length - 2);
+		tmp = tmp->next;
+	}
+	return ((int)moves_max);
+}
+
+int	get_mov_uniq(t_chemins *chemins_un, int	nb_ants)
+{
+	t_chemins	*tmp;
+	int		shortest;
+
+	tmp = chemins_un;
+	if (!chemins_un)
+		return (-1);
+	shortest = chemins_un->length - 1;
+	nb_ants += shortest;
+	while (nb_ants > shortest)
+	{
+		while (tmp && nb_ants > shortest)
+		{
+			if (nb_ants > (int)tmp->length - 1)
+			{
+				tmp->nb_tosend++;
+				nb_ants--;
+			}
+			tmp = tmp->next;
+		}
+		tmp = chemins_un;
+	}
+	return (get_max_nbmov(chemins_un));
+}
+
+
+void	select_path(t_info *colonie)
+{
+	int	short_path_mov;
+	int	shortest;
+	int	nb_movements_uniq;
+
+	shortest = colonie->chemins->length - 2;
+	short_path_mov = shortest + colonie->nb;
+	nb_movements_uniq = get_mov_uniq(colonie->chemins_un, colonie->nb);
+	ft_printf("{%d} | {%d}\n", short_path_mov, nb_movements_uniq);
+	ft_print_chemins(colonie->chemins_un);
+		if (shortest == 2)
+		go_direct(colonie);
+	else if (short_path_mov <= nb_movements_uniq)
+		go_short(colonie);
+	else
+		;//go_uniq(colonie);
+}

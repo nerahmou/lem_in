@@ -6,12 +6,12 @@
 /*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/16 15:56:51 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/14 19:46:49 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/18 17:03:16 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 void	init_colonie(t_info *colonie)
 {
@@ -46,7 +46,6 @@ void	ft_lem_in(t_info *colonie)
 //	ft_print_chemins(colonie->chemins);
 	system("dot -T png -O graph.out");
 	system("open graph.out.png");
-	ft_putendl(colonie->text);
 }
 
 int		main(void)

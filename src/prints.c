@@ -6,12 +6,12 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:15:10 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/12 19:16:04 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/18 17:43:44 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "./lem-in.h"
+#include "lem_in.h"
 
 void	ft_print_liaisons(t_salle *salle)
 {
@@ -62,11 +62,37 @@ void	ft_print_chemins(t_chemins *chemin)
 	{
 		i++;
 		tmp_salle = tmp_ch->salle;
-		ft_printf("LENGTH : [%zu]  | NB_CONNECT : {%zu} ", tmp_ch->length, tmp_ch->nb_connections);
+		ft_printf("LENGTH : [%zu]  | NB_CONNECT : {%zu} | nb_tosend : {%zu}", tmp_ch->length, tmp_ch->nb_connections, tmp_ch->nb_tosend);
 		while (tmp_salle)
 		{
 			ft_printf("[%s] --->  ", tmp_salle->name);
 			tmp_salle = tmp_salle->next;
+		}
+		ft_printf("[NULL]\n\n");
+		tmp_ch = tmp_ch->next;
+	}
+	ft_printf("Nombre de chemins : (%i)\n", i);
+}
+
+
+void	ft_print_chemins_rev(t_chemins *chemin)
+{
+	t_chemins	*tmp_ch;
+	t_salle_2	*tmp_salle;
+	int			i;
+
+	i = 0;
+	tmp_ch = chemin;
+	ft_printf("\n\n*****************************--CHEMINS REVERSE--*****************************\n\n");
+	while (tmp_ch != NULL)
+	{
+		i++;
+		tmp_salle = get_last_salle2(tmp_ch->salle);
+		ft_printf("LENGTH : [%zu]  | NB_CONNECT : {%zu} | nb_tosend : {%zu}", tmp_ch->length, tmp_ch->nb_connections, tmp_ch->nb_tosend);
+		while (tmp_salle)
+		{
+			ft_printf("[%s] --->  ", tmp_salle->name);
+			tmp_salle = tmp_salle->prev;
 		}
 		ft_printf("[NULL]\n\n");
 		tmp_ch = tmp_ch->next;

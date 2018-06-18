@@ -6,12 +6,12 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 16:46:06 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/14 19:57:45 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/18 17:43:57 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 void		*get_next_chemin(void *chemin)
 {
@@ -54,6 +54,7 @@ t_chemins	*push_chemin(t_chemins *chemin, t_salle_2 *salle)
 	new->salle = lstdup(salle);
 	new->length = ft_lstlen(new->salle, &get_next_salle2);
 	new->nb_connections = 0;
+	new->nb_tosend = 0;
 	new->next = NULL;
 	tmp = chemin;
 	if (tmp)

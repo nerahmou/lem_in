@@ -6,12 +6,12 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:16:35 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/14 18:52:43 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/18 14:40:03 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 int		get_room(t_info *colonie)
 {

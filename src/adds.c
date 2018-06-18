@@ -6,12 +6,12 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:27:01 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/08 16:29:59 by edbernie    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/18 14:30:30 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 void	ft_add_text(t_info *tab)
 {

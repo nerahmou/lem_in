@@ -6,12 +6,12 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 16:49:56 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/08 16:42:44 by edbernie    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/18 16:47:15 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 t_salle_2	*add_salle2(t_salle_2 *salle2, t_salle *salle)
 {
@@ -24,11 +24,13 @@ t_salle_2	*add_salle2(t_salle_2 *salle2, t_salle *salle)
 	link->index = salle->index;
 	link->is_full = 0;
 	link->next = NULL;
+	link->prev = NULL;
 	if (tmp != NULL)
 	{
 		while (tmp->next != NULL)
 			tmp = tmp->next;
 		tmp->next = link;
+		link->prev = tmp;
 	}
 	else
 		salle2 = link;
@@ -71,12 +73,14 @@ t_salle_2	*dupl(t_salle_2 *dest, t_salle_2 *src)
 	new->name = ft_strdup(src->name);
 	new->is_full = 0;
 	new->next = NULL;
+	new->prev = NULL;
 	tmp = dest;
 	if (tmp)
 	{
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
+		new->prev = tmp;
 	}
 	else
 		dest = new;
