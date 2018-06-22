@@ -6,7 +6,7 @@
 #    By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/30 13:54:18 by befuhro      #+#   ##    ##    #+#        #
-#    Updated: 2018/06/14 19:39:24 by nerahmou    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/06/18 15:07:30 by nerahmou    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -34,6 +34,7 @@ SRC_LEM =	main.c\
 			set_salle2.c\
 			getters_salles.c\
 			adds.c\
+			travel.c\
 			ft_error.c
 
 SRC_LEM_IN = $(addprefix $(LEM_PATH),$(SRC_LEM))
@@ -44,7 +45,7 @@ LIBFT_PATH = libft/
 INCLUDES = .
 LIBFT_INCLUDES = $(addprefix $(LIBFT_PATH),$(INCLUDES))
 CC = clang -g
-#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 NAME = lem-in
 
 

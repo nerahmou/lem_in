@@ -6,12 +6,16 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/18 14:29:41 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/18 19:04:45 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/19 15:57:19 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+/*
+ **-----------------algo when the start and the end are linked------------------
+ */
 
 void	go_direct(t_info *colonie)
 {
@@ -24,6 +28,31 @@ void	go_direct(t_info *colonie)
 		colonie->nb--;
 	}
 	ft_putchar('\n');
+}
+
+/*
+ **--------------------------algo for the shortest path-------------------------
+ */
+
+void	move_short(t_salle_2 **current, t_salle_2 *end, int index, int *ant_num)
+{
+	t_salle_2 *tmp;
+
+	tmp = *current;
+	if (tmp->index == index)
+	{
+		tmp->is_full--;
+		tmp->next->is_full = ++(*ant_num) ;
+		ft_printf("L%d-%s ", tmp->next->is_full, tmp->next->name);
+	}
+	else
+	{
+		if (tmp->next == end)
+			tmp->next->is_full++;
+		else
+			tmp->next->is_full = tmp->is_full;
+		ft_printf("L%d-%s ", tmp->is_full, tmp->next->name);
+	}
 }
 
 void	go_short(t_info *colonie)
@@ -43,22 +72,7 @@ void	go_short(t_info *colonie)
 		while (tmp && end->is_full != nb_ants)
 		{
 			if (tmp->is_full)
-			{
-				if (tmp->index == colonie->start->index)
-				{
-					tmp->is_full--;
-					tmp->next->is_full = ++ant_num;
-					ft_printf("L%d-%s ", tmp->next->is_full, tmp->next->name);
-				}
-				else
-				{
-					if (tmp->next == end)
-						tmp->next->is_full++;
-					else
-						tmp->next->is_full = tmp->is_full;
-					ft_printf("L%d-%s ", tmp->is_full, tmp->next->name);
-				}
-			}
+				move_short(&tmp, end, colonie->start->index, &ant_num);
 			tmp = tmp->prev;
 		}
 		tmp = end->prev;
@@ -66,72 +80,96 @@ void	go_short(t_info *colonie)
 	}
 }
 
+/*
+ **--------------------------algo for the uniq paths----------------------------
+ */
+
 void	go_uniq(t_info *colonie)
 {
 	int			nb_ants;
 	int			ant_num;
 	int			nb_end;
-	t_chemins	*chemins;
+	int			tour;
+	int			i;
+	t_chemins	*chemins_un;
 	t_salle_2	*tmp;
 
 	nb_ants = colonie->nb;
 	ant_num = 0;
 	nb_end = 0;
-	tmp = get_last_salle2(colonie->chemins->salle)->prev;
-	colonie->chemins->salle->is_full = nb_ants;
+	colonie->chemins_un->salle->is_full = nb_ants;
+	tour = 0;
 	while (nb_end != nb_ants)
 	{
-		chemins = colonie->chemins;
-		while (chemins)
+		chemins_un = colonie->chemins_un;
+		if (tour == (int)get_last_chemin(chemins_un)->length - 1)
+			tour = 0;
+		while (chemins_un)
 		{
-			while (tmp && nb_end != nb_ants)
+			i = 0;
+			tmp = get_last_salle2(colonie->chemins_un->salle)->prev;
+			while (i < tour/* && tmp*/)
 			{
-				if (tmp->is_full)
+				tmp = tmp->prev;
+				i++;
+			}
+			if (tmp->is_full)
+			{
+				if (tmp->index == colonie->start->index)
 				{
-					if (tmp->index == colonie->start->index)
+					if (chemins_un->nb_tosend && colonie->chemins_un->salle->is_full)
 					{
-						if (chemins->nb_tosend)
-						{
-							chemins->nb_tosend--;
-							tmp->is_full--;
-							tmp->next->is_full = ++ant_num;
-							ft_printf("L%d-%s ", tmp->next->is_full, tmp->next->name);
-						}
-					}
-					else
-					{
-						if (tmp->next->next == NULL)
-							nb_end++;
-						else
-							tmp->next->is_full = tmp->is_full;
-						ft_printf("L%d-%s ", tmp->is_full, tmp->next->name);
+						chemins_un->nb_tosend--;
+						colonie->chemins_un->salle->is_full--;
+						tmp->next->is_full = ++ant_num;
+						ft_printf("L%d-%s ", tmp->next->is_full, tmp->next->name);
 					}
 				}
-				tmp = tmp->prev;
+				else
+				{
+					if (tmp->next->next == NULL)
+						nb_end++;
+					else
+						tmp->next->is_full = tmp->is_full;
+					ft_printf("L%d-%s ", tmp->is_full, tmp->next->name);
+				}
 			}
-			chemins = chemins->next;
-			tmp = get_last_salle2(colonie->chemins->salle)->prev;
+			chemins_un = chemins_un->next;
 		}
+		tour++;
 		ft_putchar('\n');
 	}
 
 }
+
+/*
+ **-------select the uniq path which has the max number of moves------
+ */
 
 int	get_max_nbmov(t_chemins *chemins)
 {
 	t_chemins	*tmp;
 	size_t		moves_max;
 
-	tmp = chemins->next;
-	moves_max = chemins->nb_tosend + (tmp->length - 2);
-	while (tmp)
+	tmp = NULL;
+	moves_max = chemins->nb_tosend + (chemins->length - 2);
+	if (chemins->next)
 	{
-		if (tmp->nb_tosend + (tmp->length - 2) > moves_max)
-			moves_max = tmp->nb_tosend + (tmp->length - 2);
-		tmp = tmp->next;
+		tmp = chemins->next;
+		while (tmp)
+		{
+			if (tmp->nb_tosend + (tmp->length - 2) > moves_max)
+				moves_max = tmp->nb_tosend + (tmp->length - 2);
+			tmp = tmp->next;
+		}
 	}
 	return ((int)moves_max);
 }
+
+/*
+ **---function that will used to get the number of for all uniq paths and compare if
+ **the uniq paths are better than the shortest---
+ */
 
 int	get_mov_uniq(t_chemins *chemins_un, int	nb_ants)
 {
@@ -159,19 +197,19 @@ int	get_mov_uniq(t_chemins *chemins_un, int	nb_ants)
 	return (get_max_nbmov(chemins_un));
 }
 
-
 void	select_path(t_info *colonie)
 {
 	int	short_path_mov;
 	int	shortest;
 	int	nb_movements_uniq;
 
-	shortest = colonie->chemins->length - 2;
-	short_path_mov = shortest + colonie->nb;
+	shortest = colonie->chemins->length;
+	short_path_mov = shortest - 2 + colonie->nb;
 	nb_movements_uniq = get_mov_uniq(colonie->chemins_un, colonie->nb);
-	//ft_printf("{%d} | {%d}\n", short_path_mov, nb_movements_uniq);
-	//ft_print_chemins(colonie->chemins_un);
-		if (shortest == 2)
+//	ft_print_chemins(colonie->chemins_un);
+//	nb_movements_uniq = 10;
+//	ft_printf("{%d} | {%d}\n", short_path_mov, nb_movements_uniq);
+	if (shortest == 2)
 		go_direct(colonie);
 	else if (short_path_mov <= nb_movements_uniq)
 		go_short(colonie);

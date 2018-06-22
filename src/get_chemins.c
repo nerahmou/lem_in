@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 16:46:06 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/18 17:43:57 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/19 14:42:25 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -120,7 +120,7 @@ t_chemins	*delete_chemin(t_chemins *chemin)
 	nb = tmp->nb_connections;
 	while (tmp->next)
 	{
-		if (tmp->next->nb_connections > nb)
+		if (tmp->next->nb_connections >= nb)
 		{
 			prev = tmp;
 			nb = tmp->next->nb_connections;

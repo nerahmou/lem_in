@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 16:51:52 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/18 15:50:24 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/19 12:25:50 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,6 +21,16 @@ void		*get_next_salle2(void *lst)
 void		*get_next_salle(void *lst)
 {
 	return (((t_salle*)lst)->next);
+}
+
+t_chemins	*get_last_chemin(t_chemins *chemin)
+{
+	t_chemins *tmp;
+
+	tmp = chemin;
+	while (tmp->next)
+		tmp = tmp->next;
+	return (tmp);
 }
 
 t_salle_2	*get_last_salle2(t_salle_2 *salle)

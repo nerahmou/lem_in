@@ -6,7 +6,7 @@
 /*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/24 11:18:08 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/18 17:43:06 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/19 12:26:10 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,6 +91,7 @@ void					*get_next_salle(void *lst);
 void					*get_next_salle2(void *lst);
 t_salle_2				*get_last_salle2(t_salle_2 *salle);
 void					*get_next_chemin(void *lst);
+t_chemins				*get_last_chemin(t_chemins *chemin);
 t_salle					*get_room_by_name(t_salle *salle, char *name);
 t_chemins				*get_paths(t_info *colonie);
 t_salle_2 				*add_salle2(t_salle_2 *salle2, t_salle *salle);
