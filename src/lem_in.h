@@ -6,7 +6,7 @@
 /*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/24 11:18:08 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/19 12:26:10 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/19 15:51:27 by edbernie    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,7 +65,6 @@ typedef struct			s_info
 	t_salle				*salle;
 	t_chemins			*chemins;
 	t_chemins			*chemins_un;
-	FILE				*graph_file;
 }						t_info;
 
 void					ft_add_text(t_info *tab);

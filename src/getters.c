@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:16:35 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/18 14:40:03 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/19 15:51:17 by edbernie    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,6 @@ int		get_tubes(t_info *colonie, char *tubes)
 		;
 	else
 		add_liaison(colonie->salle, tab, 1);
-	fprintf(colonie->graph_file, "\t%s -- %s;\n", tab[0], tab[1]);
 	free_tab(tab);
 	colonie->line_split = NULL;
 	return (0);

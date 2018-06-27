@@ -6,7 +6,7 @@
 /*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/16 15:56:51 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/19 16:23:54 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/27 20:29:00 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,10 +25,6 @@ void	init_colonie(t_info *colonie)
 	colonie->salle = NULL;
 	colonie->chemins = NULL;
 	colonie->chemins_un = NULL;
-	colonie->graph_file = fopen("graph.out", "w");
-	if (colonie->graph_file == NULL)
-		exit(1);
-	fprintf(colonie->graph_file, "graph my_graph\n{\n");
 }
 
 void	ft_lem_in(t_info *colonie)
@@ -39,13 +35,9 @@ void	ft_lem_in(t_info *colonie)
 		ft_check_and_add(colonie);
 		ft_strdel(&colonie->line);
 	}
-	fprintf(colonie->graph_file, "}\n");
-	fclose(colonie->graph_file);
 	if (check_min(colonie))
 		;
 //	ft_print_chemins(colonie->chemins);
-	system("dot -T png -O graph.out");
-	system("open graph.out.png");
 }
 
 int		main(void)
