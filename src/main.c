@@ -6,7 +6,7 @@
 /*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/16 15:56:51 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/27 20:29:00 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/29 15:49:14 by edbernie    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,6 @@ void	ft_lem_in(t_info *colonie)
 	}
 	if (check_min(colonie))
 		;
-//	ft_print_chemins(colonie->chemins);
 }
 
 int		main(void)

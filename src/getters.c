@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:16:35 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/19 15:51:17 by edbernie    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/29 22:03:23 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,8 @@ int		get_room(t_info *colonie)
 
 	tmp = colonie->salle;
 	salle = colonie->line_split;
-	if (salle[0][0] == 'L' || check_digit(salle[1]) || check_digit(salle[2]))
+	if (salle[0][0] == 'L' || check_digit(salle[1]) || check_digit(salle[2]) ||
+			ft_strchr(salle[0], '-'))
 		return (1);
 	colonie->salle = add_salle(tmp, salle, colonie->index);
 	if (duplicate_room(colonie) == 1)

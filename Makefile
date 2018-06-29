@@ -6,7 +6,7 @@
 #    By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/30 13:54:18 by befuhro      #+#   ##    ##    #+#        #
-#    Updated: 2018/06/18 15:07:30 by nerahmou    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/06/29 22:47:32 by nerahmou    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -27,14 +27,19 @@ LEM_PATH = src/
 
 SRC_LEM =	main.c\
 			checkers.c\
+			checkers2.c\
 			getters.c\
 			prints.c\
 			clears.c\
 			get_chemins.c\
+			get_chemins2.c\
+			get_nb_co.c\
 			set_salle2.c\
 			getters_salles.c\
 			adds.c\
 			travel.c\
+			send_ants.c\
+			send_ants2.c\
 			ft_error.c
 
 SRC_LEM_IN = $(addprefix $(LEM_PATH),$(SRC_LEM))
@@ -44,7 +49,7 @@ OBJ = $(addprefix $(OBJ_LEM_PATH),$(OBJ_LEM))
 LIBFT_PATH = libft/
 INCLUDES = .
 LIBFT_INCLUDES = $(addprefix $(LIBFT_PATH),$(INCLUDES))
-CC = clang -g
+CC = clang
 CFLAGS = -Wall -Wextra -Werror
 NAME = lem-in
 
@@ -64,12 +69,13 @@ $(OBJ_LEM_PATH)%.o: $(LEM_PATH)%.c
 
 clean:
 	@echo "SUPPRESSION FICHIER LEM-IN .O"
-	@rm -rf $(OBJ_LEM_PATH) lem-in.dSYM
+	@rm -rf $(OBJ_LEM_PATH) lem-in.dSYM moves
 	@make -C $(LIBFT_PATH) clean
 
 fclean: clean
 	@echo "SUPPRESSION LEM-IN"
 	@rm -f $(NAME)
 	@make -C $(LIBFT_PATH) fclean
+	@make -C lem_in_viz fclean
 
 re: fclean all

@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/30 14:36:19 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/18 14:30:43 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/28 14:23:35 by edbernie    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,6 +65,7 @@ void			*nettoyage_colonie(t_info *colonie)
 	free_tab(colonie->line_split);
 	colonie->salle = nettoyage_salles(colonie->salle);
 	colonie->chemins = nettoyage_chemin(colonie->chemins);
+	colonie->chemins_un = nettoyage_chemin(colonie->chemins_un);
 	return (NULL);
 }
 

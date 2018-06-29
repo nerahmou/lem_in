@@ -6,14 +6,14 @@
 /*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/07 14:53:38 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/18 14:39:45 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/28 13:58:12 by edbernie    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_salle_2*nettoyage_salle2(t_salle_2 *salle)
+t_salle_2	*nettoyage_salle2(t_salle_2 *salle)
 {
 	t_salle_2 *tmp;
 
@@ -28,10 +28,9 @@ t_salle_2*nettoyage_salle2(t_salle_2 *salle)
 	return (NULL);
 }
 
-void ft_error(t_info *colonie)
+void		ft_error(t_info *colonie)
 {
 	ft_printf("Error\n");
 	nettoyage_colonie(colonie);
 	exit(1);
 }
-
