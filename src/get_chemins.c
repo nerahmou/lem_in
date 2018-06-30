@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 16:46:06 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/29 22:46:38 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/30 14:04:15 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,8 +40,6 @@ void		backtracking(t_salle *salle, t_chemins **chemin, t_salle_2 *tmp,
 {
 	t_connection *tmp_co;
 
-	if (ft_lstlen(*chemin, &get_next_chemin) > 200)
-		return ;
 	if (salle->index == end)
 	{
 		tmp = add_salle2(tmp, salle);
@@ -90,7 +88,7 @@ t_chemins	*get_paths(t_info *colonie)
 	tmp = NULL;
 	start = colonie->start;
 	tmp_co = colonie->start->co;
-	while (tmp_co && ft_lstlen(chemin, &get_next_chemin) < 200)
+	while (tmp_co)
 	{
 		tmp = add_salle2(tmp, start);
 		backtracking(tmp_co->salle, &chemin, tmp, colonie->end->index);

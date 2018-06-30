@@ -6,7 +6,7 @@
 /*   By: edbernie <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/28 15:14:17 by edbernie     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/29 16:31:13 by edbernie    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/30 16:05:47 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,11 +43,10 @@ int			check_end(t_chemins *chemin, int nb)
 		salle = tmp->salle;
 		while (salle->next)
 			salle = salle->next;
-		if (salle->is_full > i)
-			i = salle->is_full;
+		i += salle->is_full;
 		tmp = tmp->next;
 	}
-	if (i < nb)
+	if (i != nb)
 		return (1);
 	return (0);
 }
@@ -98,10 +97,10 @@ char		*move_ants(t_chemins *chemin, int line)
 			salle = on_salle(tmp, i);
 			if (salle->next && salle->is_full != 0)
 			{
-				salle->next->is_full = salle->is_full;
+				str = add_res(salle->is_full, salle->next->name, str);
+				salle->next->is_full = salle->next->next == NULL ?
+					salle->next->is_full + 1 : salle->is_full;
 				salle->is_full = 0;
-				salle = salle->next;
-				str = add_res(salle->is_full, salle->name, str);
 			}
 			tmp = tmp->next;
 		}

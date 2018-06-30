@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/18 14:29:41 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/29 16:31:15 by edbernie    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/30 16:05:42 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,11 +25,12 @@ int			ft_send_ants(t_info *colonie, int line, int i)
 	{
 		salle = on_salle(tmp, 0);
 		salle = salle->next;
-		if (i <= colonie->nb)
+		if (i <= colonie->nb && tmp->nb_tosend != 0)
 		{
 			salle->is_full = i;
 			res = add_res(salle->is_full, salle->name, res);
 			i++;
+			tmp->nb_tosend--;
 		}
 		tmp = tmp->next;
 	}

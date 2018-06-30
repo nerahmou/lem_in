@@ -6,12 +6,21 @@
 #    By: nerahmou <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 09:17:07 by nerahmou          #+#    #+#              #
-#    Updated: 2018/06/29 20:04:39 by nerahmou    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/06/30 10:09:46 by nerahmou    ###    #+. /#+    ###.fr      #
 #                                                                              #
 # **************************************************************************** #
 
 .PHONY: all clean fclean re make_printf
 .SUFFIXES:
+
+_END=$'\x1b[0m
+_BOLD=$'\x1b[1m
+_UNDER=$'\x1b[4m
+_ICYAN=$'\x1b[46m
+_IGREY=$'\x1b[40m
+_IRED=$'\x1b[41m
+_IGREEN=$'\x1b[42m
+_IYELLOW=$'\x1b[43m
 
 NAME = libft.a
 CC = gcc
@@ -134,7 +143,9 @@ $(NAME): make_printf $(OBJ) $(INC)
 
 $(OBJ_PATH)/%.o: %.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
+	@echo "COMPILATION DE ($(_BOLD)$(_IRED)$(notdir $<)$(_END)) EN ($(_BOLD)$(_IGREEN)$(notdir $@)$(_END))"
 	@$(CC) $(CFLAGS) -c $^ -o $@
+	@clear
 
 make_printf:
 	@make -C printf

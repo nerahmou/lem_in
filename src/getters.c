@@ -6,7 +6,7 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/29 19:16:35 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/29 22:03:23 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/30 13:02:16 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,7 +78,7 @@ int		get_other(t_info *colonie, char *other, int tab_len)
 {
 	if (ft_strcmp(other, "##start") == 0 && tab_len == 1)
 		colonie->start = get_other_next(colonie);
-	else if (strcmp(other, "##end") == 0 && tab_len == 1)
+	else if (ft_strcmp(other, "##end") == 0 && tab_len == 1)
 		colonie->end = get_other_next(colonie);
 	else if (other[0] == '#')
 		;
