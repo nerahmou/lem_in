@@ -49,7 +49,7 @@ INCLUDES_PATH = include/
 INCLUDES_FILES = $(INCLUDES_PATH)*
 
 LIB_PATH = ./lib/
-INCLUDES_VISU= -I ~/.brew/include/SDL2/
+INCLUDES_VISU= -I ~/.brew/include/
 
 LIB_VISU= -L ~/.brew/lib -lSDL2 -lSDL2_ttf -lSDL2_image
 
@@ -68,6 +68,7 @@ $(OBJ_LEM_PATH):
 	@mkdir $@
 
 $(OBJ_LEM_PATH)%.o: $(LEM_PATH)%.c $(INCLUDES_FILES)
+	echo users
 	@$(CC) $(INCLUDES_VISU) -I $(INCLUDES_PATH) -I $(LIB_PATH) -o $@ -c $<
 
 clean:

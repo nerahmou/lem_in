@@ -53,7 +53,6 @@ CC = clang
 CFLAGS = -Wall -Wextra -Werror
 NAME = lem-in
 
-
 all: $(NAME) 
 
 $(NAME): $(OBJ)
