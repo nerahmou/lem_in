@@ -21,7 +21,6 @@
 # define PREC "."
 # define SIZE "hljz"
 # define TYPE "sSdDibBoOuUxXcCpn%"
-
 # define XUPP "0123456789ABCDEF"
 # define XLOW "0123456789abcdef"
 # define DEC "0123456789"
@@ -39,24 +38,6 @@
 # define BGREEN "{Bgreen}"
 
 # define RES_COLOR "{eoc}"
-
-# define SET_BLUE "\e[34m"
-# define SET_RED "\e[31m"
-# define SET_GREEN "\e[32m"
-
-# define SET_BBLUE "\e[44m"
-# define SET_BRED "\e[41m"
-# define SET_BGREEN "\e[42m"
-
-# define ITALIC "{italic}"
-# define BOLD "{bold}"
-# define UNDERLINE "{underline}"
-
-# define SET_BOLD "\e[1m"
-# define SET_ITALIC "\e[3m"
-# define SET_UNDERLINE "\e[4m"
-
-# define SET_RES "\e[0m"
 
 typedef	struct	s_suitcase
 {

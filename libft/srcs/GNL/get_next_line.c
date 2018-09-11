@@ -6,87 +6,94 @@
 /*   By: nerahmou <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/29 18:09:11 by nerahmou     #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/12 18:58:56 by nerahmou    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/11 10:41:19 by nerahmou    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	void	fill_line(char **line, char *buff)
+char		*ft_realloc(char **line, char *str)
 {
-	char	*tmp;
+	char *tmp;
 
-	tmp = NULL;
 	if (!*line)
-		*line = ft_strdup(buff);
+	{
+		if (!(*line = ft_strdup(str)))
+			return (NULL);
+	}
 	else
 	{
-		tmp = *line;
-		*line = ft_strjoin(tmp, buff);
-		ft_strdel(&tmp);
+		if (!(tmp = ft_strjoin(*line, str)))
+			return (NULL);
+		ft_strdel(line);
+		*line = tmp;
 	}
+	return (*line);
 }
 
-static int		get_tmp(char **line, char **tmp_st, char *buff)
+static int	ft_sub_tmp(char **line, char **tmp)
 {
-	int		b_n;
+	char	*str;
+	char	*apres_back_n;
 
-	b_n = ft_char_pos(buff, '\n');
-	buff[b_n] = 0;
-	fill_line(line, buff);
-	buff[b_n] = '\n';
-	if (buff[b_n + 1] != 0)
-		*tmp_st = ft_strsub(buff, b_n + 1, ft_strlen(&buff[b_n + 1]));
-	return (1);
+	str = NULL;
+	if (!**tmp)
+		return (0);
+	if ((apres_back_n = ft_strchr(*tmp, '\n')))
+	{
+		(*tmp)[ft_char_pos(*tmp, '\n')] = 0;
+		if (!(ft_realloc(line, *tmp)))
+			return (-1);
+		if (apres_back_n[1] && !(str = ft_strdup(&apres_back_n[1])))
+			return (-1);
+		(*tmp)[ft_char_pos(*tmp, '\n')] = '\n';
+		ft_strdel(tmp);
+		*tmp = str;
+		return (1);
+	}
+	if (!(ft_realloc(line, *tmp)))
+		return (-1);
+	ft_strdel(tmp);
+	return (0);
 }
 
-static int		read_fd(int fd, char **line, char **tmp_st)
+static	int	ft_fill_line(char **line, char **tmp, int fd)
 {
 	char	buff[BUFF_SIZE + 1];
+	char	*apres_back_n;
 	int		ret;
-	int		b_n;
 
-	while ((ret = read(fd, buff, BUFF_SIZE)) && ret != -1)
+	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
 	{
 		buff[ret] = 0;
-		if (ft_strchr(buff, '\n'))
+		if ((apres_back_n = ft_strchr(buff, '\n')))
 		{
-			b_n = ft_char_pos(buff, '\n');
-			if (buff[b_n + 1] != 0 || ret == BUFF_SIZE)
-				return (get_tmp(line, tmp_st, buff));
-			buff[b_n] = 0;
+			buff[ft_char_pos(buff, '\n')] = 0;
+			if (!(ft_realloc(line, buff)))
+				return (-1);
+			if (apres_back_n[1] && !(*tmp = ft_strdup(&apres_back_n[1])))
+				return (-1);
+			break ;
 		}
-		fill_line(line, buff);
+		else if (!(ft_realloc(line, buff)))
+			return (-1);
 	}
-	if (ret <= 0)
-		return (ret);
-	return (1);
+	return (ret);
 }
 
-int				get_next_line(int fd, char **line)
+int			get_next_line(int fd, char **line)
 {
-	static char	*tmp_st = NULL;
-	int			ret;
-	char		*tmp;
+	static char		*tmp = NULL;
 
-	tmp = NULL;
-	if (fd < 0 || !line)
+	if (BUFF_SIZE < 1 || fd < 0 || !line)
 		return (-1);
 	*line = NULL;
-	if (tmp_st)
-	{
-		if (ft_strrchr(tmp_st, '\n'))
-		{
-			tmp = tmp_st;
-			get_tmp(line, &tmp_st, tmp);
-			tmp == tmp_st ? ft_strdel(&tmp_st) : ft_strdel(&tmp);
-			return (1);
-		}
-		fill_line(line, tmp_st);
-		if (*tmp_st)
-			ft_strdel(&tmp_st);
-	}
-	ret = read_fd(fd, line, &tmp_st);
-	return (*line ? 1 : ret);
+	if (tmp && ft_sub_tmp(line, &tmp) == 1)
+		return (1);
+	if (ft_fill_line(line, &tmp, fd) == -1)
+		return (-1);
+	if (*line)
+		return (1);
+	return (0);
 }
